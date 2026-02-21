@@ -1,13 +1,227 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
+<html lang="en" data-theme="light">
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCS Algorithm Visualizer</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+</head>
+
+<body>
+    <div class="app-shell">
+        <div class="app-content">
+            <header class="app-header">
+                <div class="title-block">
+                    <h1 class="app-title">
+                        <i class="fas fa-project-diagram"></i>
+                        <span class="title-text">LCS Algorithm Visualizer</span>
+                    </h1>
+                </div>
+                <div class="header-right">
+                    <a href="comparison.html" class="compare-link" target="_blank">
+                        <i class="fas fa-balance-scale"></i> Compare Algorithms
+                    </a>
+                    <div class="theme-toggle" id="themeToggle">
+                        <span class="theme-toggle-icon" id="themeIcon">☀️</span>
+                        <span class="theme-toggle-text" id="themeText">Light</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="layout">
+                <!-- Left Pane: Inputs & Controls -->
+                <div class="panel pane-left">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-sliders-h"></i> Configuration
+                        </div>
+                    </div>
+
+                    <div class="algorithm-selector">
+                        <div class="algo-tab active" data-algo="standard">
+                            <i class="fas fa-table"></i> Standard DP
+                        </div>
+                        <div class="algo-tab" data-algo="rolling">
+                            <i class="fas fa-layer-group"></i> Rolling Array
+                        </div>
+                        <div class="algo-tab" data-algo="hirschberg">
+                            <i class="fas fa-code-branch"></i> Hirschberg
+                        </div>
+                    </div>
+
+                    <div class="inputs-group">
+                        <div class="input-row">
+                            <label for="seqA">
+                                Sequence A
+                                <span class="key">n = <span id="stats-n">0</span></span>
+                            </label>
+                            <input type="text" id="seqA" placeholder="e.g., AGGTAB" maxlength="8">
+                            <div class="hint-text">
+                                <i class="fas fa-info-circle"></i> Max 8 characters
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label for="seqB">
+                                Sequence B
+                                <span class="key">m = <span id="stats-m">0</span></span>
+                            </label>
+                            <input type="text" id="seqB" placeholder="e.g., GXTXAYB" maxlength="8">
+                            <div class="hint-text">
+                                <i class="fas fa-info-circle"></i> Max 8 characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="controls-container">
+                        <div class="controls-compact">
+                            <button class="control-btn" id="prevStepBtn">
+                                <i class="fas fa-chevron-left"></i> Back
+                            </button>
+                            <button class="control-btn primary" id="autoPlayBtn">
+                                <i class="fas fa-play"></i> Play
+                            </button>
+                            <button class="control-btn" id="nextStepBtn">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <button class="control-btn danger" id="resetBtn">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+
+                        <div class="speed-section">
+                            <label>Speed</label>
+                            <div class="slider-wrapper">
+                                <span class="speed-label">Slow</span>
+                                <input type="range" id="speedSlider" min="50" max="2000" step="50" value="500">
+                                <span class="speed-label">Fast</span>
+                            </div>
+                            <div class="speed-display" id="currentSpeedDisplay">500ms</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label"><i class="fas fa-expand-alt"></i> Space</div>
+                            <div class="stat-value" id="stats-space">0</div>
+                            <div class="stat-badge">cells</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label"><i class="fas fa-step-forward"></i> Step</div>
+                            <div class="stat-value" id="stats-step">0</div>
+                            <div class="stat-badge">current</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label"><i class="fas fa-list-ol"></i> Total</div>
+                            <div class="stat-value" id="stats-total">0</div>
+                            <div class="stat-badge">steps</div>
+                        </div>
+                    </div>
+
+                    <div class="lcs-output-row">
+                        <div>
+                            <i class="fas fa-ruler"></i> LCS Length:
+                            <strong id="lcs-length">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Pane: Pseudo-code & Explanation -->
+                <div class="panel pane-center">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-book-open"></i> Logic
+                        </div>
+                    </div>
+                    <div class="logic-content" id="logicContent">
+                        <!-- Pseudo-code injected by JS -->
+                    </div>
+                    <div class="explanation-box">
+                        <div class="explanation-title">
+                            <span><i class="fas fa-comment-alt"></i> Explanation</span>
+                        </div>
+                        <div id="explanation-text">
+                            <i class="fas fa-info-circle"></i> Enter two sequences and press Next or Play to start.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Visualization Table + All LCS -->
+                <div class="panel pane-right">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-table"></i> Visualization
+                        </div>
+                        <div class="legend-row">
+                            <div class="legend-chip">
+                                <span class="legend-color current"></span> Current
+                            </div>
+                            <div class="legend-chip">
+                                <span class="legend-color match"></span> Match
+                            </div>
+                            <div class="legend-chip">
+                                <span class="legend-color trace"></span> Trace
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-panel-content">
+                        <div class="visual-comparison">
+                            <div class="comparison-strings">
+                                <div class="string-display">
+                                    <div class="string-label">
+                                        <span><i class="fas fa-font"></i> Seq A</span>
+                                    </div>
+                                    <div class="string-chars" id="charsA"></div>
+                                </div>
+                                <div class="comparison-arrow" id="comparisonArrow"></div>
+                                <div class="string-display">
+                                    <div class="string-label">
+                                        <span><i class="fas fa-font"></i> Seq B</span>
+                                    </div>
+                                    <div class="string-chars" id="charsB"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dp-wrapper">
+                            <div id="dp-table-title" class="dp-table-title">
+                                <i class="fas fa-table"></i> DP Table dp[i][j]
+                            </div>
+                            <div class="dp-table-container">
+                                <div class="dp-table-scroll" id="dp-table-container">
+                                    <!-- DP table injected by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="all-lcs-section" id="allLcsSection">
+                            <div class="all-lcs-title">
+                                <i class="fas fa-list"></i> All LCS Strings
+                            </div>
+                            <div class="all-lcs-list" id="allLcsList">
+                                <span class="text-muted">Will appear after traceback completes.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <span>
+                    <i class="fas fa-keyboard"></i>
+                    Shortcuts: <kbd>←</kbd>/<kbd>→</kbd> Step, <kbd>Space</kbd> Play/Pause
+                </span>
+                <span>
+                    <i class="fas fa-code"></i> Longest Common Subsequence Visualizer
+                </span>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
+
 </html>

@@ -2,38 +2,174 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is a <i>subsequence</i> of a string?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "A contiguous block of characters",
+        "b": "Characters chosen in order, not necessarily contiguous",
+        "c": "Any permutation of characters",
+        "d": "A prefix of the string"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. A contiguous block is a <b>substring</b>.",
+        "b": "Correct! A subsequence preserves relative order but allows gaps.",
+        "c": "Incorrect. Permutations can rearrange the original order.",
+        "d": "Incorrect. A prefix is a specific substring starting at index 0."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "If characters are removed from a string without changing order, the result is a:",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Substring",
+        "b": "Subsequence",
+        "c": "Permutation",
+        "d": "Prefix"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. Substrings must be contiguous.",
+        "b": "Correct! This matches the mathematical definition of a subsequence.",
+        "c": "Incorrect. Permutations focus on rearrangement.",
+        "d": "Incorrect. A prefix is the beginning segment of a string."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In the Rod Cutting problem, what is the main objective?",
+      "answers": {
+        "a": "Minimize the number of cuts",
+        "b": "Maximize the total profit from cuts",
+        "c": "Use the longest rod pieces",
+        "d": "Minimize rod wastage"
+      },
+      "explanations": {
+        "a": "Incorrect. Fewer cuts don't always yield more money.",
+        "b": "Correct! The goal is optimization of total revenue.",
+        "c": "Incorrect. Shorter pieces often have higher combined value.",
+        "d": "Incorrect. Profit is the primary metric, even if some rod is 'wasted' (though usually not an issue in this DP problem)."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which property is common to both LCS and Rod Cutting problems?",
+      "answers": {
+        "a": "Greedy choice property",
+        "b": "Optimal substructure",
+        "c": "Divide-and-conquer only",
+        "d": "Sorting-based solution"
+      },
+      "explanations": {
+        "a": "Incorrect. Greedy choices often fail in these problems.",
+        "b": "Correct! Both problems can be solved by combining optimal solutions of smaller subproblems.",
+        "c": "Incorrect. While they use recursion, pure D&C is inefficient without memoization.",
+        "d": "Incorrect. Sorting is not the primary mechanism for finding LCS or Rod Cutting solutions."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why use Dynamic Programming (DP) instead of a Greedy Algorithm (GA)?",
+      "answers": {
+        "a": "GA is slow.",
+        "b": "DP uses constant auxiliary space.",
+        "c": "DP reuses the solved subproblems to avoid redundant work.",
+        "d": "DP always solves a problem in linear time."
+      },
+      "explanations": {
+        "a": "Incorrect. Greedy is usually faster but often incorrect for these problems.",
+        "b": "Incorrect. DP usually requires O(n) or O(n²) space.",
+        "c": "Correct! Overlapping subproblems are the reason we use DP.",
+        "d": "Incorrect. DP complexity depends on the state space (often O(n²))."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What happens if two strings share no common characters?",
+      "answers": {
+        "a": "LCS is undefined",
+        "b": "LCS length is −1",
+        "c": "LCS length is 0",
+        "d": "LCS length equals string length"
+      },
+      "explanations": {
+        "a": "Incorrect. It is defined as an empty string.",
+        "b": "Incorrect. Length cannot be negative.",
+        "c": "Correct! The only common subsequence is the empty string.",
+        "d": "Incorrect. This would imply the strings match."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
+    },
+    {
+      "question": "In Rod Cutting, why can smaller pieces sometimes give more profit than one large piece?",
+      "answers": {
+        "a": "Prices increase with cuts",
+        "b": "Prices are arbitrary and non-linear",
+        "c": "Cutting reduces cost",
+        "d": "Rod length changes"
+      },
+      "explanations": {
+        "a": "Incorrect. Cutting doesn't inherently change the price of a segment.",
+        "b": "Correct! Market value for pieces doesn't have to scale linearly with length.",
+        "c": "Incorrect. Cutting itself is usually considered zero-cost in this problem.",
+        "d": "Incorrect. The total rod length remains constant."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What makes both problems computationally hard without DP?",
+      "answers": {
+        "a": "Large input size only",
+        "b": "Overlapping subproblems",
+        "c": "Need for sorting",
+        "d": "Exponential number of possible solutions"
+      },
+      "explanations": {
+        "a": "Incorrect. Large inputs are handled by efficient algorithms.",
+        "b": "Incorrect. Overlapping subproblems are the <i>opportunity</i> for DP, not the difficulty itself.",
+        "c": "Incorrect. Sorting doesn't apply.",
+        "d": "Correct! Brute force would require checking 2ⁿ paths."
+      },
+      "correctAnswer": "d",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the time complexity of the naive recursive solution for LCS?",
+      "answers": {
+        "a": "O(n)",
+        "b": "O(n²)",
+        "c": "O(2ⁿ)",
+        "d": "O(n log n)"
+      },
+      "explanations": {
+        "a": "Incorrect. Linear time is for simple traversals.",
+        "b": "Incorrect. O(n²) is the <b>optimized</b> DP complexity.",
+        "c": "Correct! The recursive tree branches at every non-match.",
+        "d": "Incorrect. Logarithmic complexity is usually for sorting/searching."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In Rod Cutting, the DP table entry dp[i] represents:",
+      "answers": {
+        "a": "Number of cuts made",
+        "b": "Maximum revenue for a rod of length i",
+        "c": "Price of rod piece i",
+        "d": "Length of rod remaining"
+      },
+      "explanations": {
+        "a": "Incorrect. We store revenue, not counts.",
+        "b": "Correct! It stores the optimal value for the sub-length i.",
+        "c": "Incorrect. Prices are given in the input array.",
+        "d": "Incorrect. The state represents the total length being solved."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
     }
   ]
 }

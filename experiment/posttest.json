@@ -2,38 +2,174 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "Why do we add <code>+1</code> in LCS DP when characters match?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "To count both characters",
+        "b": "To extend an existing optimal subsequence",
+        "c": "To move diagonally",
+        "d": "To increase table size"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. One match adds one unit of length.",
+        "b": "Correct! A match at (i, j) extends the LCS of (i-1, j-1).",
+        "c": "Incorrect. Movement is a side effect of the recurrence.",
+        "d": "Incorrect. Table size is independent of matching."
       },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "When characters don't match in LCS, why take <code>max(dp[i-1][j], dp[i][j-1])</code>?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "To skip one character from either string",
+        "b": "To ensure lexicographical order",
+        "c": "To reduce space",
+        "d": "To force recursion"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct! We check which string's current character contributes less to the LCS.",
+        "b": "Incorrect. LCS doesn't care about lexicography unless specified.",
+        "c": "Incorrect. This step doesn't affect space complexity.",
+        "d": "Incorrect. Recursion is a technique, not the goal."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the primary benefit of Hirschberg's algorithm for LCS?",
+      "answers": {
+        "a": "Faster execution time",
+        "b": "Reduced space complexity while allowing reconstruction",
+        "c": "Simpler implementation",
+        "d": "Handles more than 2 strings"
+      },
+      "explanations": {
+        "a": "Incorrect. It actually takes more time (roughly double).",
+        "b": "Correct! It achieves O(n) space while still letting us find the LCS string.",
+        "c": "Incorrect. It is much more complex than standard DP.",
+        "d": "Incorrect. It's still for two strings."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What does a tie in the DP table (e.g., dp[i-1][j] == dp[i][j-1]) imply?",
+      "answers": {
+        "a": "The algorithm has an error",
+        "b": "Multiple optimal subsequences exist",
+        "c": "The strings are identical",
+        "d": "The LCS length is 0"
+      },
+      "explanations": {
+        "a": "Incorrect. This is expected behavior.",
+        "b": "Correct! It means there's more than one path to the same maximum length.",
+        "c": "Incorrect. Ties happen frequently even in non-identical strings.",
+        "d": "Incorrect. A tie can occur at any length."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why is pure recursion alone inefficient for LCS and Rod Cutting?",
+      "answers": {
+        "a": "Stack overflow only",
+        "b": "Recomputes identical subproblems multiple times",
+        "c": "Cannot handle characters",
+        "d": "Cannot find maximums"
+      },
+      "explanations": {
+        "a": "Incorrect. Stack overflow is a limit, not the reason for inefficiency.",
+        "b": "Correct! Without memoization, we solve the same state repeatedly.",
+        "c": "Incorrect. Recursion handles any data type.",
+        "d": "Incorrect. Recursion can find maximums easily."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "For very large inputs, what is the biggest limitation in standard O(n*m) DP?",
+      "answers": {
+        "a": "CPU Clock speed",
+        "b": "Floating point errors",
+        "c": "Memory usage (RAM)",
+        "d": "Internet bandwidth"
+      },
+      "explanations": {
+        "a": "Incorrect. CPU time is linear-quadratic, but memory is the first 'hard' limit hit.",
+        "b": "Incorrect. DP usually uses integers.",
+        "c": "Correct! A 100k x 100k matrix would require gigabytes of RAM.",
+        "d": "Incorrect. This is local computation."
       },
       "correctAnswer": "c",
-      "difficulty": "beginner"
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In Rod Cutting, why does the DP consider all possible first cuts?",
+      "answers": {
+        "a": "To satisfy the compiler",
+        "b": "Because any length cut could lead to the optimal solution",
+        "c": "To increase code length",
+        "d": "To use more memory"
+      },
+      "explanations": {
+        "a": "Incorrect. Compilers don't dictate algorithm logic.",
+        "b": "Correct! We must explore all i ∈ [1, n] to ensure optimality.",
+        "c": "Incorrect. Experts prefer concise, correct code.",
+        "d": "Incorrect. Memory use is unrelated to the loop range."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which statement is true for X='ABCBDAB', Y='BDCABA'?",
+      "answers": {
+        "a": "LCS length is 3",
+        "b": "LCS length is 4",
+        "c": "LCS length is 5",
+        "d": "No common subsequence exists"
+      },
+      "explanations": {
+        "a": "Incorrect. Try 'BCAB' or 'BDAB'.",
+        "b": "Correct! The LCS length is 4.",
+        "c": "Incorrect. No length-5 subsequence exists.",
+        "d": "Incorrect. Many common characters exist."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Can the LCS length be greater than the length of the shorter string?",
+      "answers": {
+        "a": "Yes",
+        "b": "No",
+        "c": "Only if strings match",
+        "d": "Only for numeric strings"
+      },
+      "explanations": {
+        "a": "Incorrect. You cannot have a common sequence longer than the source material.",
+        "b": "Correct! LCS length is bounded by min(length(X), length(Y)).",
+        "c": "Incorrect. Even if they match, it equals the length, not exceeds it.",
+        "d": "Incorrect. Data type doesn't change sequence logic."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the space complexity of Rod Cutting with DP (Bottom-Up)?",
+      "answers": {
+        "a": "O(1)",
+        "b": "O(n)",
+        "c": "O(n²)",
+        "d": "O(2ⁿ)"
+      },
+      "explanations": {
+        "a": "Incorrect. We need a table to store revenues.",
+        "b": "Correct! We only need an array of size n+1.",
+        "c": "Incorrect. That would be for two-variable problems like LCS.",
+        "d": "Incorrect. Linear space is sufficient."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
     }
   ]
 }

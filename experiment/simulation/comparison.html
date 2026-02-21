@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCS Algorithm Comparison</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #f0f9ff;
+            --bg-panel: #ffffff;
+            --accent: #0ea5e9;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --border: rgba(14, 165, 233, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--text-main);
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .comp-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .comp-header h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #1e40af, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 8px;
+        }
+
+        .comp-header p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-panel);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .comp-table th,
+        .comp-table td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comp-table th {
+            background: #0ea5e9;
+            color: white;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .comp-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comp-table tr:hover {
+            background: rgba(14, 165, 233, 0.03);
+        }
+
+        .comp-table td:first-child {
+            font-weight: 600;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tag.good {
+            background: rgba(5, 150, 105, 0.12);
+            color: #059669;
+        }
+
+        .tag.bad {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .tag.neutral {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .summary {
+            margin-top: 30px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            background: var(--bg-panel);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 5px 20px rgba(14, 165, 233, 0.05);
+        }
+
+        .summary h3 {
+            color: var(--text-main);
+            margin-top: 0;
+        }
+
+        .summary p {
+            margin: 8px 0;
+        }
+
+        .summary strong {
+            color: var(--accent);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="comp-header">
+            <h1><i class="fas fa-balance-scale"></i> LCS Algorithm Comparison</h1>
+            <p>Analyzing Time and Space Complexity of the Three Approaches</p>
+        </div>
+
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                    <th>Best For</th>
+                    <th>Backtracking?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Standard DP</td>
+                    <td><span class="tag neutral">O(N × M)</span></td>
+                    <td><span class="tag bad">O(N × M)</span></td>
+                    <td>General use, small to medium strings, learning.</td>
+                    <td><span class="tag good">Easy — full table available</span></td>
+                </tr>
+                <tr>
+                    <td>Rolling Array</td>
+                    <td><span class="tag neutral">O(N × M)</span></td>
+                    <td><span class="tag good">O(min(N, M))</span></td>
+                    <td>Memory-constrained environments where only the length is needed.</td>
+                    <td><span class="tag bad">Hard — previous rows discarded</span></td>
+                </tr>
+                <tr>
+                    <td>Hirschberg's</td>
+                    <td><span class="tag neutral">O(N × M)</span></td>
+                    <td><span class="tag good">O(min(N, M))</span></td>
+                    <td>Large sequences (DNA) where space is critical but the LCS string is needed.</td>
+                    <td><span class="tag good">Complex but possible</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <h3><i class="fas fa-info-circle"></i> Summary</h3>
+            <p><strong>Standard DP</strong> is the most intuitive approach. It builds a full (N+1)×(M+1) table, making
+                backtracking straightforward. However, it uses the most memory — O(N×M) space.</p>
+            <p><strong>Rolling Array</strong> optimizes space by realizing we only need the previous row to compute the
+                current row. This reduces space to O(min(N,M)) but destroys the path information, making it hard to
+                reconstruct the actual LCS string.</p>
+            <p><strong>Hirschberg's Algorithm</strong> combines divide-and-conquer with the rolling array technique. It
+                achieves O(min(N,M)) space while still recovering the full LCS string — the gold standard for
+                linear-space LCS computation.</p>
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Visualizer
+        </a>
+    </div>
+</body>
+
+</html>

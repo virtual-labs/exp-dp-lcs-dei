@@ -1,1 +1,1 @@
-## Experiment name
+## Longest Common Subsequence (LCS) Visualizer
