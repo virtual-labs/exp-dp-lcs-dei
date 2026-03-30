@@ -36,18 +36,18 @@
       "difficulty": "beginner"
     },
     {
-      "question": "In the Rod Cutting problem, what is the main objective?",
+      "question": "Why is the first row and first column of the LCS DP table initialized to 0?",
       "answers": {
-        "a": "Minimize the number of cuts",
-        "b": "Maximize the total profit from cuts",
-        "c": "Use the longest rod pieces",
-        "d": "Minimize rod wastage"
+        "a": "Because the algorithm starts counting from 1",
+        "b": "Because comparing any string with an empty string yields an LCS of length 0",
+        "c": "Because the table needs placeholder values",
+        "d": "Because 0 is the smallest positive integer"
       },
       "explanations": {
-        "a": "Incorrect. Fewer cuts don't always yield more money.",
-        "b": "Correct! The goal is optimization of total revenue.",
-        "c": "Incorrect. Shorter pieces often have higher combined value.",
-        "d": "Incorrect. Profit is the primary metric, even if some rod is 'wasted' (though usually not an issue in this DP problem)."
+        "a": "Incorrect. The initialization reflects the base case, not a counting convention.",
+        "b": "Correct! The LCS of any string with an empty string is always the empty string, which has length 0.",
+        "c": "Incorrect. These are meaningful base case values, not placeholders.",
+        "d": "Incorrect. 0 is not a positive integer; the initialization reflects the base case logic."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -104,20 +104,20 @@
       "difficulty": "beginner"
     },
     {
-      "question": "In Rod Cutting, why can smaller pieces sometimes give more profit than one large piece?",
+      "question": "In LCS, what does a diagonal arrow (↖) in the DP table indicate?",
       "answers": {
-        "a": "Prices increase with cuts",
-        "b": "Prices are arbitrary and non-linear",
-        "c": "Cutting reduces cost",
-        "d": "Rod length changes"
+        "a": "The characters at that position do not match",
+        "b": "The current cell value came from the cell above",
+        "c": "The characters at that position match and are part of the LCS",
+        "d": "The algorithm has reached a dead end"
       },
       "explanations": {
-        "a": "Incorrect. Cutting doesn't inherently change the price of a segment.",
-        "b": "Correct! Market value for pieces doesn't have to scale linearly with length.",
-        "c": "Incorrect. Cutting itself is usually considered zero-cost in this problem.",
-        "d": "Incorrect. The total rod length remains constant."
+        "a": "Incorrect. A diagonal arrow specifically indicates a character match.",
+        "b": "Incorrect. That would be an upward arrow (↑).",
+        "c": "Correct! A diagonal arrow means the characters matched, and the value was derived from dp[i-1][j-1] + 1.",
+        "d": "Incorrect. Diagonal arrows are a normal and desirable part of the algorithm."
       },
-      "correctAnswer": "b",
+      "correctAnswer": "c",
       "difficulty": "intermediate"
     },
     {
@@ -155,18 +155,18 @@
       "difficulty": "advanced"
     },
     {
-      "question": "In Rod Cutting, the DP table entry dp[i] represents:",
+      "question": "In the LCS DP table, dp[i][j] represents:",
       "answers": {
-        "a": "Number of cuts made",
-        "b": "Maximum revenue for a rod of length i",
-        "c": "Price of rod piece i",
-        "d": "Length of rod remaining"
+        "a": "The number of matching characters in both strings",
+        "b": "The length of the LCS of the first i characters of X and the first j characters of Y",
+        "c": "The edit distance between X[1..i] and Y[1..j]",
+        "d": "The total number of subsequences of X[1..i]"
       },
       "explanations": {
-        "a": "Incorrect. We store revenue, not counts.",
-        "b": "Correct! It stores the optimal value for the sub-length i.",
-        "c": "Incorrect. Prices are given in the input array.",
-        "d": "Incorrect. The state represents the total length being solved."
+        "a": "Incorrect. dp[i][j] considers order and subsequence structure, not just raw character counts.",
+        "b": "Correct! Each cell stores the LCS length for the corresponding prefixes of both sequences.",
+        "c": "Incorrect. Edit distance is a different problem (Levenshtein distance).",
+        "d": "Incorrect. The total number of subsequences is a combinatorial count, not what the DP table stores."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"

@@ -36,21 +36,21 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "What is the primary benefit of Hirschberg's algorithm for LCS?",
+      "question": "What is the time complexity of the standard Dynamic Programming approach for LCS of two strings of lengths n and m?",
       "answers": {
-        "a": "Faster execution time",
-        "b": "Reduced space complexity while allowing reconstruction",
-        "c": "Simpler implementation",
-        "d": "Handles more than 2 strings"
+        "a": "O(n + m)",
+        "b": "O(n log m)",
+        "c": "O(n * m)",
+        "d": "O(max(n, m))"
       },
       "explanations": {
-        "a": "Incorrect. It actually takes more time (roughly double).",
-        "b": "Correct! It achieves O(n) space while still letting us find the LCS string.",
-        "c": "Incorrect. It is much more complex than standard DP.",
-        "d": "Incorrect. It's still for two strings."
+        "a": "Incorrect. This would be linear time, which is not enough to compare all pairs.",
+        "b": "Incorrect. There is no binary search or divide-and-conquer step in the standard DP.",
+        "c": "Correct! We fill an n by m table, taking O(1) time per cell.",
+        "d": "Incorrect. It involves multiplying the lengths, not taking the maximum."
       },
-      "correctAnswer": "b",
-      "difficulty": "advanced"
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
     },
     {
       "question": "What does a tie in the DP table (e.g., dp[i-1][j] == dp[i][j-1]) imply?",
@@ -70,20 +70,20 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "Why is pure recursion alone inefficient for LCS and Rod Cutting?",
+      "question": "If two strings X and Y are identical (X = Y), what is the LCS?",
       "answers": {
-        "a": "Stack overflow only",
-        "b": "Recomputes identical subproblems multiple times",
-        "c": "Cannot handle characters",
-        "d": "Cannot find maximums"
+        "a": "The empty string",
+        "b": "The first character only",
+        "c": "The string itself",
+        "d": "Half of the string"
       },
       "explanations": {
-        "a": "Incorrect. Stack overflow is a limit, not the reason for inefficiency.",
-        "b": "Correct! Without memoization, we solve the same state repeatedly.",
-        "c": "Incorrect. Recursion handles any data type.",
-        "d": "Incorrect. Recursion can find maximums easily."
+        "a": "Incorrect. Identical strings share every character in order.",
+        "b": "Incorrect. The entire string is a common subsequence.",
+        "c": "Correct! When X = Y, the LCS is the entire string since every character matches in order.",
+        "d": "Incorrect. The full string is a valid common subsequence."
       },
-      "correctAnswer": "b",
+      "correctAnswer": "c",
       "difficulty": "intermediate"
     },
     {
@@ -104,18 +104,18 @@
       "difficulty": "advanced"
     },
     {
-      "question": "In Rod Cutting, why does the DP consider all possible first cuts?",
+      "question": "What is the main trade-off of the Rolling Array optimization for LCS?",
       "answers": {
-        "a": "To satisfy the compiler",
-        "b": "Because any length cut could lead to the optimal solution",
-        "c": "To increase code length",
-        "d": "To use more memory"
+        "a": "Faster execution but incorrect results",
+        "b": "Less memory usage but cannot directly reconstruct the LCS string",
+        "c": "More memory usage but simpler code",
+        "d": "Lower time complexity but higher space complexity"
       },
       "explanations": {
-        "a": "Incorrect. Compilers don't dictate algorithm logic.",
-        "b": "Correct! We must explore all i ∈ [1, n] to ensure optimality.",
-        "c": "Incorrect. Experts prefer concise, correct code.",
-        "d": "Incorrect. Memory use is unrelated to the loop range."
+        "a": "Incorrect. Rolling Array gives correct LCS length.",
+        "b": "Correct! By keeping only two rows, we save space but lose the full table needed for backtracking.",
+        "c": "Incorrect. Rolling Array uses less memory, not more.",
+        "d": "Incorrect. Time complexity remains O(mn); space complexity is reduced."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"

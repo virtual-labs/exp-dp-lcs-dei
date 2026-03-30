@@ -19,7 +19,6 @@ Choose one of three algorithms to visualize:
 
 1. **Standard DP** (O(n²) space): Shows complete DP table with backtracking
 2. **Rolling Array** (O(n) space): Uses only two rows, space-efficient
-3. **Hirschberg** (O(n) space): Divide-and-conquer approach
 
 ## Step 4: Initialize the DP Table
 
