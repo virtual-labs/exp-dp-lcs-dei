@@ -1,0 +1,175 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is a <i>subsequence</i> of a string?",
+      "answers": {
+        "a": "A contiguous block of characters",
+        "b": "Characters chosen in order, not necessarily contiguous",
+        "c": "Any permutation of characters",
+        "d": "A prefix of the string"
+      },
+      "explanations": {
+        "a": "Incorrect. A contiguous block is a <b>substring</b>.",
+        "b": "Correct! A subsequence preserves relative order but allows gaps.",
+        "c": "Incorrect. Permutations can rearrange the original order.",
+        "d": "Incorrect. A prefix is a specific substring starting at index 0."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "If characters are removed from a string without changing order, the result is a:",
+      "answers": {
+        "a": "Substring",
+        "b": "Subsequence",
+        "c": "Permutation",
+        "d": "Prefix"
+      },
+      "explanations": {
+        "a": "Incorrect. Substrings must be contiguous.",
+        "b": "Correct! This matches the mathematical definition of a subsequence.",
+        "c": "Incorrect. Permutations focus on rearrangement.",
+        "d": "Incorrect. A prefix is the beginning segment of a string."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Why is the first row and first column of the LCS DP table initialized to 0?",
+      "answers": {
+        "a": "Because the algorithm starts counting from 1",
+        "b": "Because comparing any string with an empty string yields an LCS of length 0",
+        "c": "Because the table needs placeholder values",
+        "d": "Because 0 is the smallest positive integer"
+      },
+      "explanations": {
+        "a": "Incorrect. The initialization reflects the base case, not a counting convention.",
+        "b": "Correct! The LCS of any string with an empty string is always the empty string, which has length 0.",
+        "c": "Incorrect. These are meaningful base case values, not placeholders.",
+        "d": "Incorrect. 0 is not a positive integer; the initialization reflects the base case logic."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which property is common to both LCS and Rod Cutting problems?",
+      "answers": {
+        "a": "Greedy choice property",
+        "b": "Optimal substructure",
+        "c": "Divide-and-conquer only",
+        "d": "Sorting-based solution"
+      },
+      "explanations": {
+        "a": "Incorrect. Greedy choices often fail in these problems.",
+        "b": "Correct! Both problems can be solved by combining optimal solutions of smaller subproblems.",
+        "c": "Incorrect. While they use recursion, pure D&C is inefficient without memoization.",
+        "d": "Incorrect. Sorting is not the primary mechanism for finding LCS or Rod Cutting solutions."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why use Dynamic Programming (DP) instead of a Greedy Algorithm (GA)?",
+      "answers": {
+        "a": "GA is slow.",
+        "b": "DP uses constant auxiliary space.",
+        "c": "DP reuses the solved subproblems to avoid redundant work.",
+        "d": "DP always solves a problem in linear time."
+      },
+      "explanations": {
+        "a": "Incorrect. Greedy is usually faster but often incorrect for these problems.",
+        "b": "Incorrect. DP usually requires O(n) or O(n²) space.",
+        "c": "Correct! Overlapping subproblems are the reason we use DP.",
+        "d": "Incorrect. DP complexity depends on the state space (often O(n²))."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What happens if two strings share no common characters?",
+      "answers": {
+        "a": "LCS is undefined",
+        "b": "LCS length is −1",
+        "c": "LCS length is 0",
+        "d": "LCS length equals string length"
+      },
+      "explanations": {
+        "a": "Incorrect. It is defined as an empty string.",
+        "b": "Incorrect. Length cannot be negative.",
+        "c": "Correct! The only common subsequence is the empty string.",
+        "d": "Incorrect. This would imply the strings match."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In LCS, what does a diagonal arrow (↖) in the DP table indicate?",
+      "answers": {
+        "a": "The characters at that position do not match",
+        "b": "The current cell value came from the cell above",
+        "c": "The characters at that position match and are part of the LCS",
+        "d": "The algorithm has reached a dead end"
+      },
+      "explanations": {
+        "a": "Incorrect. A diagonal arrow specifically indicates a character match.",
+        "b": "Incorrect. That would be an upward arrow (↑).",
+        "c": "Correct! A diagonal arrow means the characters matched, and the value was derived from dp[i-1][j-1] + 1.",
+        "d": "Incorrect. Diagonal arrows are a normal and desirable part of the algorithm."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What makes both problems computationally hard without DP?",
+      "answers": {
+        "a": "Large input size only",
+        "b": "Overlapping subproblems",
+        "c": "Need for sorting",
+        "d": "Exponential number of possible solutions"
+      },
+      "explanations": {
+        "a": "Incorrect. Large inputs are handled by efficient algorithms.",
+        "b": "Incorrect. Overlapping subproblems are the <i>opportunity</i> for DP, not the difficulty itself.",
+        "c": "Incorrect. Sorting doesn't apply.",
+        "d": "Correct! Brute force would require checking 2ⁿ paths."
+      },
+      "correctAnswer": "d",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the time complexity of the naive recursive solution for LCS?",
+      "answers": {
+        "a": "O(n)",
+        "b": "O(n²)",
+        "c": "O(2ⁿ)",
+        "d": "O(n log n)"
+      },
+      "explanations": {
+        "a": "Incorrect. Linear time is for simple traversals.",
+        "b": "Incorrect. O(n²) is the <b>optimized</b> DP complexity.",
+        "c": "Correct! The recursive tree branches at every non-match.",
+        "d": "Incorrect. Logarithmic complexity is usually for sorting/searching."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In the LCS DP table, dp[i][j] represents:",
+      "answers": {
+        "a": "The number of matching characters in both strings",
+        "b": "The length of the LCS of the first i characters of X and the first j characters of Y",
+        "c": "The edit distance between X[1..i] and Y[1..j]",
+        "d": "The total number of subsequences of X[1..i]"
+      },
+      "explanations": {
+        "a": "Incorrect. dp[i][j] considers order and subsequence structure, not just raw character counts.",
+        "b": "Correct! Each cell stores the LCS length for the corresponding prefixes of both sequences.",
+        "c": "Incorrect. Edit distance is a different problem (Levenshtein distance).",
+        "d": "Incorrect. The total number of subsequences is a combinatorial count, not what the DP table stores."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    }
+  ]
+}

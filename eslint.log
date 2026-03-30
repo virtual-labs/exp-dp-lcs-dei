@@ -1,0 +1,7 @@
+
+/home/runner/work/exp-dp-lcs-dei/exp-dp-lcs-dei/experiment/simulation/js/main.js
+  1011:47  warning  'e' is defined but never used  no-unused-vars
+  1144:43  warning  'e' is defined but never used  no-unused-vars
+
+✖ 2 problems (0 errors, 2 warnings)
+

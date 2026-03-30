@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCS Algorithm Visualizer</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+</head>
+<body>
+    <div class="app-shell">
+        <div class="app-content">
+            <header class="app-header">
+                <div class="title-block">
+                    <div class="title-row">
+                        <h1 class="app-title">
+                            <i class="fas fa-project-diagram"></i>
+                            <span class="title-text">Virtual Lab - LCS Algorithm Visualizer. </span>
+                            <span class="app-title-pill">Dayalbagh Educational Institute - Faculty of Engineering</span>
+                        </h1>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="theme-toggle" id="themeToggle">
+                        <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+                        <span class="theme-toggle-text" id="themeText">Dark</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="layout">
+                <!-- Left panel: Inputs & Controls -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-sliders-h"></i> Inputs & Controls
+                        </div>
+                        <div class="panel-subtitle">Configure & Visualize</div>
+                    </div>
+
+                    <div class="algorithm-selector">
+                        <div class="algo-tab active" data-algo="standard">
+                            <i class="fas fa-table"></i> Standard DP
+                        </div>
+                        <div class="algo-tab" data-algo="rolling">
+                            <i class="fas fa-layer-group"></i> Rolling Array
+                        </div>
+                    </div>
+                    <div class="algo-info" id="algoInfo">
+                        <strong><i class='fas fa-info-circle'></i> Standard DP:</strong> Builds full DP table, O(n²) space, allows full backtracking
+                    </div>
+
+                    <div class="inputs-group">
+                        <div class="input-row">
+                            <label for="seqA">
+                                Sequence A
+                                <span class="key">n = <span id="stats-n">0</span></span>
+                            </label>
+                            <input type="text" id="seqA" placeholder="e.g., AGGTAB" maxlength="20">
+                            <div class="hint-text">
+                                <i class="fas fa-info-circle"></i> Up to 20 characters recommended
+                            </div>
+                        </div>
+
+                        <div class="input-row">
+                            <label for="seqB">
+                                Sequence B
+                                <span class="key">m = <span id="stats-m">0</span></span>
+                            </label>
+                            <input type="text" id="seqB" placeholder="e.g., GXTXAYB" maxlength="20">
+                            <div class="hint-text">
+                                <i class="fas fa-info-circle"></i> Up to 20 characters recommended
+                            </div>
+                        </div>
+                        <div class="preset-heading">
+  <span class="preset-title">
+    <i class="fas fa-prescription-bottle"></i> PRESETS
+  </span>
+</div>
+                        <div class="preset-row">
+                            <div class="chip" data-preset="classic">
+                                <i class="fas fa-star"></i> Classic
+                            </div>
+                            <div class="chip" data-preset="match-heavy">
+                                <i class="fas fa-fire"></i> Match-heavy
+                            </div>
+                            <div class="chip" data-preset="almost-equal">
+                                <i class="fas fa-balance-scale"></i> Almost equal
+                            </div>
+                            <div class="chip" data-preset="simple">
+                                <i class="fas fa-feather"></i> Simple
+                            </div>
+                        </div>
+
+                        <!-- Controls Container -->
+                        <div class="controls-container">
+                            <!-- Simplified Controls -->
+                            <div class="controls-compact">
+                                <button class="control-btn" id="prevStepBtn">
+                                    <i class="fas fa-chevron-left"></i> Back
+                                </button>
+                                <button class="control-btn primary" id="autoPlayBtn">
+                                    <i class="fas fa-play"></i> Auto-Play
+                                </button>
+                                <button class="control-btn" id="nextStepBtn">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+
+                            <!-- Speed Control -->
+                            <div class="premium-slider">
+                                <div class="slider-container">
+                                    <div class="premium-slider-track">
+                                        <div class="premium-slider-fill" id="sliderFill"></div>
+                                    </div>
+                                    <input type="range" class="premium-slider-input" id="speedSlider" 
+                                           min="50" max="2000" step="50" value="175">
+                                    <div class="premium-slider-thumb" id="sliderThumb"></div>
+                                </div>
+                                <div class="slider-labels">
+                                    <span class="slider-label slow">Slow</span>
+                                    <span class="slider-label fast">Fast</span>
+                                </div>
+                                <div class="speed-display" id="currentSpeedDisplay">175ms</div>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    <i class="fas fa-expand-alt"></i> Space
+                                </div>
+                                <div class="stat-value" id="stats-space">0</div>
+                                <div class="stat-badge">cells</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    <i class="fas fa-step-forward"></i> Step
+                                </div>
+                                <div class="stat-value" id="stats-step">0</div>
+                                <div class="stat-badge">current</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    <i class="fas fa-list-ol"></i> Total
+                                </div>
+                                <div class="stat-value" id="stats-total">0</div>
+                                <div class="stat-badge">steps</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <div class="explanation-title">
+                            <span><i class="fas fa-comment-alt"></i> Explanation</span>
+                        </div>
+                        <div id="explanation-text">
+                            <i class='fas fa-info-circle'></i> Enter two sequences or select a preset. Use the step controls to visualize the algorithm.
+                        </div>
+                    </div>
+
+                    <div class="lcs-output-row">
+                        <div>
+                            <i class="fas fa-ruler"></i> LCS Length:
+                            <strong id="lcs-length">0</strong>
+                        </div>
+                        <div>
+                            <i class="fas fa-font"></i> LCS String:
+                        </div>
+                    </div>
+                    <div id="lcs-string">–</div>
+                </div>
+
+                <!-- Right panel: Visualization -->
+                <div class="panel">
+                    <div class="right-panel-content">
+                        <div class="visual-comparison">
+                            <div class="comparison-title">
+                                <span><i class="fas fa-exchange-alt"></i> Character Comparison</span>
+                                <span>Live</span>
+                            </div>
+                            <div class="comparison-strings">
+                                <div class="string-display">
+                                    <div class="string-label">
+                                        <span><i class="fas fa-font"></i> Sequence A</span>
+                                        <span>Length: <span id="vis-lenA">0</span></span>
+                                    </div>
+                                    <div class="string-chars" id="charsA">
+                                        <!-- Character boxes will be inserted here -->
+                                    </div>
+                                </div>
+                                <div class="comparison-arrow" id="comparisonArrow">
+                                    <!-- Comparison text appears here -->
+                                </div>
+                                <div class="string-display">
+                                    <div class="string-label">
+                                        <span><i class="fas fa-font"></i> Sequence B</span>
+                                        <span>Length: <span id="vis-lenB">0</span></span>
+                                    </div>
+                                    <div class="string-chars" id="charsB">
+                                        <!-- Character boxes will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dp-wrapper">
+                            <div class="dp-header-row">
+                                <div id="dp-table-title">
+                                    <i class='fas fa-table'></i> DP Table dp[i][j]
+                                </div>
+                                <div class="legend-row">
+                                    <div class="legend-chip">
+                                        <span class="legend-color match"></span> Match
+                                    </div>
+                                    <div class="legend-chip">
+                                        <span class="legend-color current"></span> Current
+                                    </div>
+                                    <div class="legend-chip">
+                                        <span class="legend-color trace"></span> Trace
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dp-visualization-area">
+                                <div class="dp-table-section">
+                                    <div class="dp-table-container">
+                                        <div class="dp-table-scroll" id="dp-table-container">
+                                            <!-- DP table will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="code-section">
+                                    <div class="code-box">
+                                        <div class="code-title-row">
+                                            <span><i class="fas fa-code"></i> <span id="code-description">Standard DP</span> Pseudocode</span>
+                                            <span>Live</span>
+                                        </div>
+                                        <div class="code-lines" id="codeLines">
+                                            <!-- Pseudocode lines will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="backtracking-visual" id="backtrackingVisual">
+                            <div class="backtracking-title">
+                                <span><i class="fas fa-shoe-prints"></i> Backtracking Path</span>
+                                <span>Trace</span>
+                            </div>
+                            <div class="backtracking-path" id="backtrackingPath">
+                                <!-- Backtracking path will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <span>
+                    <i class="fas fa-keyboard"></i> 
+                    Shortcuts: <kbd>←</kbd>/<kbd>→</kbd> Step, <kbd>Space</kbd> Auto-play
+                </span>
+                <span>
+                    <i class="fas fa-code"></i> Longest Common Subsequence Visualizer
+                </span>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-cogs"></i> Select Visualization Mode</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mode-option" data-mode="stepwise">
+                    <div class="mode-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="mode-info">
+                        <h4>Step-by-Step Mode</h4>
+                        <p>Walk through each comparison one step at a time. Perfect for learning how the algorithm works.</p>
+                    </div>
+                </div>
+                <div class="mode-option" data-mode="auto">
+                    <div class="mode-icon">
+                        <i class="fas fa-forward"></i>
+                    </div>
+                    <div class="mode-info">
+                        <h4>Auto-Play Mode</h4>
+                        <p>Watch the algorithm run automatically at adjustable speed. Great for observing the overall flow.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="cancelMode">Cancel</button>
+                <button class="modal-btn" id="confirmMode">Confirm Selection</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+<script src="../assets/js/iframeResize.js"></script>
+        
+        </body>
+</html>

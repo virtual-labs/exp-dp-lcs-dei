@@ -1,0 +1,175 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Why do we add <code>+1</code> in LCS DP when characters match?",
+      "answers": {
+        "a": "To count both characters",
+        "b": "To extend an existing optimal subsequence",
+        "c": "To move diagonally",
+        "d": "To increase table size"
+      },
+      "explanations": {
+        "a": "Incorrect. One match adds one unit of length.",
+        "b": "Correct! A match at (i, j) extends the LCS of (i-1, j-1).",
+        "c": "Incorrect. Movement is a side effect of the recurrence.",
+        "d": "Incorrect. Table size is independent of matching."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "When characters don't match in LCS, why take <code>max(dp[i-1][j], dp[i][j-1])</code>?",
+      "answers": {
+        "a": "To skip one character from either string",
+        "b": "To ensure lexicographical order",
+        "c": "To reduce space",
+        "d": "To force recursion"
+      },
+      "explanations": {
+        "a": "Correct! We check which string's current character contributes less to the LCS.",
+        "b": "Incorrect. LCS doesn't care about lexicography unless specified.",
+        "c": "Incorrect. This step doesn't affect space complexity.",
+        "d": "Incorrect. Recursion is a technique, not the goal."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the time complexity of the standard Dynamic Programming approach for LCS of two strings of lengths n and m?",
+      "answers": {
+        "a": "O(n + m)",
+        "b": "O(n log m)",
+        "c": "O(n * m)",
+        "d": "O(max(n, m))"
+      },
+      "explanations": {
+        "a": "Incorrect. This would be linear time, which is not enough to compare all pairs.",
+        "b": "Incorrect. There is no binary search or divide-and-conquer step in the standard DP.",
+        "c": "Correct! We fill an n by m table, taking O(1) time per cell.",
+        "d": "Incorrect. It involves multiplying the lengths, not taking the maximum."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What does a tie in the DP table (e.g., dp[i-1][j] == dp[i][j-1]) imply?",
+      "answers": {
+        "a": "The algorithm has an error",
+        "b": "Multiple optimal subsequences exist",
+        "c": "The strings are identical",
+        "d": "The LCS length is 0"
+      },
+      "explanations": {
+        "a": "Incorrect. This is expected behavior.",
+        "b": "Correct! It means there's more than one path to the same maximum length.",
+        "c": "Incorrect. Ties happen frequently even in non-identical strings.",
+        "d": "Incorrect. A tie can occur at any length."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "If two strings X and Y are identical (X = Y), what is the LCS?",
+      "answers": {
+        "a": "The empty string",
+        "b": "The first character only",
+        "c": "The string itself",
+        "d": "Half of the string"
+      },
+      "explanations": {
+        "a": "Incorrect. Identical strings share every character in order.",
+        "b": "Incorrect. The entire string is a common subsequence.",
+        "c": "Correct! When X = Y, the LCS is the entire string since every character matches in order.",
+        "d": "Incorrect. The full string is a valid common subsequence."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "For very large inputs, what is the biggest limitation in standard O(n*m) DP?",
+      "answers": {
+        "a": "CPU Clock speed",
+        "b": "Floating point errors",
+        "c": "Memory usage (RAM)",
+        "d": "Internet bandwidth"
+      },
+      "explanations": {
+        "a": "Incorrect. CPU time is linear-quadratic, but memory is the first 'hard' limit hit.",
+        "b": "Incorrect. DP usually uses integers.",
+        "c": "Correct! A 100k x 100k matrix would require gigabytes of RAM.",
+        "d": "Incorrect. This is local computation."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the main trade-off of the Rolling Array optimization for LCS?",
+      "answers": {
+        "a": "Faster execution but incorrect results",
+        "b": "Less memory usage but cannot directly reconstruct the LCS string",
+        "c": "More memory usage but simpler code",
+        "d": "Lower time complexity but higher space complexity"
+      },
+      "explanations": {
+        "a": "Incorrect. Rolling Array gives correct LCS length.",
+        "b": "Correct! By keeping only two rows, we save space but lose the full table needed for backtracking.",
+        "c": "Incorrect. Rolling Array uses less memory, not more.",
+        "d": "Incorrect. Time complexity remains O(mn); space complexity is reduced."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which statement is true for X='ABCBDAB', Y='BDCABA'?",
+      "answers": {
+        "a": "LCS length is 3",
+        "b": "LCS length is 4",
+        "c": "LCS length is 5",
+        "d": "No common subsequence exists"
+      },
+      "explanations": {
+        "a": "Incorrect. Try 'BCAB' or 'BDAB'.",
+        "b": "Correct! The LCS length is 4.",
+        "c": "Incorrect. No length-5 subsequence exists.",
+        "d": "Incorrect. Many common characters exist."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Can the LCS length be greater than the length of the shorter string?",
+      "answers": {
+        "a": "Yes",
+        "b": "No",
+        "c": "Only if strings match",
+        "d": "Only for numeric strings"
+      },
+      "explanations": {
+        "a": "Incorrect. You cannot have a common sequence longer than the source material.",
+        "b": "Correct! LCS length is bounded by min(length(X), length(Y)).",
+        "c": "Incorrect. Even if they match, it equals the length, not exceeds it.",
+        "d": "Incorrect. Data type doesn't change sequence logic."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the space complexity of Rod Cutting with DP (Bottom-Up)?",
+      "answers": {
+        "a": "O(1)",
+        "b": "O(n)",
+        "c": "O(n²)",
+        "d": "O(2ⁿ)"
+      },
+      "explanations": {
+        "a": "Incorrect. We need a table to store revenues.",
+        "b": "Correct! We only need an array of size n+1.",
+        "c": "Incorrect. That would be for two-variable problems like LCS.",
+        "d": "Incorrect. Linear space is sufficient."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    }
+  ]
+}
